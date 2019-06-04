@@ -10694,3 +10694,11 @@ a.text-dark:focus {
   color: #fff;
 }
 
+.counters .view {
+  margin-top: 10px;
+}
+
+form.form-delete {
+  display: inline;
+}
+
