@@ -32,7 +32,7 @@ class QuestionPolicy
     public function delete(User $user, Question $question)
     {
         //if question has no answer then user can remove it if question has 1 answer or more it cannot be remove by the user
-        return $user->id == $question->user_id && $question->answers < 1;
+        return $user->id == $question->user_id && $question->answers_count < 1;
     }
 
     /**
