@@ -37,4 +37,9 @@ class Answer extends Model
         return $this->hasMany(Answer::class);
 
     }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
 }
