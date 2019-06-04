@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use Illuminate\Http\Request;
+use App\Http\Requests\AskQuestionRequest;
 
 class QuestionsController extends Controller
 {
@@ -38,9 +39,14 @@ class QuestionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AskQuestionRequest $request)
     {
-        //
+        //can get the current user by this $request->user()
+        //this will add the approriate user id value to the question model
+        //and pass the question that we enter in the form to the create method
+        //$request->user()->questions()->create($request->all());
+        $request->user()->questions()->create($request->only('title','body'));
+        return redirect()->route('questions.index')->with('success', "Your Question has been submitted");
     }
 
     /**
