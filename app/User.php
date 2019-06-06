@@ -52,6 +52,11 @@ class User extends Authenticatable
         return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size;
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Questions::class, 'favorites')->withTimeStamps();
+    }
+
     /**
      * The attributes that should be cast to native types.
      *
