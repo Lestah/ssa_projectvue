@@ -39,7 +39,7 @@
                 'model' => $model,
             ])
     @elseif ($model instanceof App\Answer)
-        @include('shared._accepts', [
+        @include('shared._accept', [
                 'model' => $model,
             ])
     @endif
