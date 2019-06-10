@@ -94,4 +94,10 @@ class Question extends Model
         return \Parsedown::instance()->text($this->body);
     }
 
+    public function answer()
+    {
+        return $this->hasMany(Answer::class)->orderBy('votes_count','DESC');
+
+    }
+
 }
