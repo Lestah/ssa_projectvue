@@ -31,23 +31,45 @@
                 .then(res => {
                     this.editing = false;
                     this.bodyHtml = res.data.body_html;
-                    alert(res.data.message);
+                    this.$toast.success(res.data.message, "Success", { timeout: 3000});
                 })
                 .catch(err => {
+                    this.$toast.error(err.response.data.message, "Error", { timeout: 3000});
                     alert(err.response.data.message);
                     console.log("Something went wrong");
                 });
             },
 
             destroy () {
-                if (confirm('Are you sure?')) {
-                    axios.delete(this.endpoint)
-                    .then(res => {
-                        $(this.$el).fadeOut(500, () => {
-                            alert(res.data.message);
-                        })
-                    });
-                }
+                this.$toast.question('Are you sure about that?', "Confirm", {
+                timeout: 20000,
+                close: false,
+                overlay: true,
+                displayMode: 'once',
+                id: 'question',
+                zindex: 999,
+                title: 'Hey',
+                position: 'center',
+                buttons: [
+                    ['<button><b>YES</b></button>', (instance, toast) => {
+
+                        axios.delete(this.endpoint)
+                        .then(res => {
+                            $(this.$el).fadeOut(500, () => {
+                                this.$toast.success(res.data.message, "Sucess", { timeout: 3000 });
+                            })
+                        });
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }, true],
+                    ['<button>NO</button>', function (instance, toast) {
+
+                        instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+
+                    }],
+                ]
+                });
             }
         },
 
